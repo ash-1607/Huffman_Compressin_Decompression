@@ -32,7 +32,13 @@ int main(int argc, char** argv){
         if (!(cin >> choice)) break;
         
         if (choice == 1) {
-            string inF, outF;
+            string inF = promptPathLine("Input file: ");
+            if (!fileExists(inF)) {
+                cout << "Input file does not exist: " << inF << "\n";
+                continue;
+            }
+
+            string outF = promptPathLine("Output file: ");
 
             if (fileExists(outF)) {
                 cout << "Output file already exists. Overwrite? (y/n): ";
@@ -47,8 +53,6 @@ int main(int argc, char** argv){
                     continue;
                 }
             }
-            cout << "Input file: "; cin >> inF;
-            cout << "Output file: "; cin >> outF;
             
             bool ok = compressor.compressFile(inF, outF);
             cout << (ok ? "Compressed -> " + outF + "\n" : "Compression failed.\n");

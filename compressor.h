@@ -41,11 +41,19 @@ public:
 private:
     // Private helpers implemented in compressor.cpp:
     // - buildHuffmanTree: construct tree from frequency map
-    // - buildCodes: traverse tree to produce bitstring codes for each symbol
-    // - serializeTree: write tree to an output stream so decompressor can reconstruct it
-    // - freeTree: recursive destructor for tree nodes
+    
     HuffmanNode* buildHuffmanTree(const unordered_map<unsigned char, uint64_t> &freqMap);
+
+    // - buildCodes: traverse tree to produce bitstring codes for each symbol
     void buildCodes(HuffmanNode* node, string &path, unordered_map<unsigned char, string> &codes);
-    void serializeTree(HuffmanNode* root, ostream &out);
+    
+    // Write the explicit code table to output stream (used by decompressor)
+    // Format suggestion:
+    //   [numCodes: uint16_t]
+    //   For each symbol:
+    //     [symbol: 1 byte][code length: uint16_t][code bits packed into bytes]
+    void writeCodeTable(const unordered_map<unsigned char, string> &codes, ostream &out);
+
+    // - freeTree: recursive destructor for tree nodes
     void freeTree(HuffmanNode* root);
 };
