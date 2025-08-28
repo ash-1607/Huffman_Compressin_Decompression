@@ -1,0 +1,21 @@
+# Build artifacts
+*.o
+*.obj
+*.exe
+*.out
+huffman
+
+# IDE / Editor
+.vscode/
+.idea/
+*.suo
+*.user
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary / binary data
+*.bin
+*.huf
